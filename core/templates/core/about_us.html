@@ -1,0 +1,148 @@
+{% extends "_master.html" %}
+{% load static %}
+{% block title %}درباره ما{% endblock %}
+{% block meta_description %}آشنایی با اهداف و تیم ما در این صفحه{% endblock %}
+{% block og_title %}درباره ما - برند شما{% endblock %}
+{% block og_description %}اطلاعات درباره تیم ما و خدماتی که ارائه می‌دهیم{% endblock %}
+
+{% block content %}
+			<meta http-equiv="X-Frame-Options" content="DENY">
+			<meta http-equiv="X-Content-Type-Options" content="nosniff">
+			<meta name="referrer" content="no-referrer-when-downgrade">
+			<!-- ============================ Page Title Start================================== -->
+			<section class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							
+							<div class="breadcrumbs-wrap">
+								<h1 class="breadcrumb-title">درباره ما چه میگویند؟</h1>
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="{% url "core:home" %}">خانه</a></li>
+										<li class="breadcrumb-item active" aria-current="page">درباره ما</li>
+									</ol>
+								</nav>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- ============================ Page Title End ================================== -->	
+			
+			<!-- ========================== About Facts List Section =============================== -->
+			<section class="pt-0">
+				<div class="container">
+					
+					<div class="row align-items-center">
+					
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="list_facts_wrap">
+								<div class="sec-heading mb-3 f-24">
+									<h2>مسیرهای <span class="theme-cl">یادگیری </span>و مجموعه های آموزشی</h2>
+								</div>
+								<div class="list_facts">
+									<div class="list_facts_caption">
+										<h4>نظارت دقیق و ارزیابی عملکرد معلمان</h4>
+										<p>هر کجای ایران یا دنیا که هستید، معلم های ما به صورت زنده به شما تدریس می کنند.</p>
+									</div>
+								</div>
+								<div class="list_facts">
+									<div class="list_facts_caption">
+										<h4>شفافیت قیمت و تضمین پایین‌ترین قیمت‌ها</h4>
+										<p>در زمان ثبت درخواست امکان نحوه برگزاری کلاس بصورت حضوری یا آنلاین وجود دارد.</p>
+									</div>
+								</div>
+								<div class="list_facts">
+									<div class="list_facts_caption">
+										<h4>امکان برگزاری کلاس بصورت حضوری یا آنلاین</h4>
+										<p>از بین بیش از 2000 معلم فعال با استفاده از فیلتر‌ها بهترین استاد متناسب با شرایط خود را بیابید.</p>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="list_facts_wrap_img">
+							
+								<img src="{% static "img/edu_2.png" %}" class="img-fluid" alt="" />
+								
+							</div>
+						</div>
+
+					</div>
+					
+				</div>
+			</section>
+			<!-- ========================== About Facts List Section =============================== -->
+						
+			<!-- ============================ Testimonial Start ================================== -->
+			<section style="background:url({% static "img/testimonial.png" %})">
+				<div class="container">
+				
+					<div class="row justify-content-center">
+						<div class="col-lg-5 col-md-6 col-sm-12">
+							<div class="sec-heading center">
+								<p>مردم چه می گویند؟</p>
+								<h2><span class="theme-cl">امتیازات</span> دانشجویان موفق و برتر</h2>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<div id="testimonials_style" class="slick-carousel-3 arrow_middle" dir="rtl">
+								<div class="testimonial-detail">
+									<div class="client-detail-box">
+										<div class="pic">
+											<img src="{% static "img/user-1.jpg" %}" alt="">
+										</div>
+										<div class="client-detail">
+											<h3 class="testimonial-title">آدام آلوریام</h3>
+											<span class="post">برنامه نویس وب</span>
+										</div>
+									</div>
+									<p class="description">
+										" ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. "
+									</p>
+								</div>
+
+                                <div class="testimonial-detail">
+									<div class="client-detail-box">
+										<div class="pic">
+											<img src="{% static "img/user-2.jpg" %}" alt="">
+										</div>
+										<div class="client-detail">
+											<h3 class="testimonial-title">آدام آلوریام</h3>
+											<span class="post">برنامه نویس وب</span>
+										</div>
+									</div>
+									<p class="description">
+										" ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. "
+									</p>
+								</div>
+
+                                <div class="testimonial-detail">
+									<div class="client-detail-box">
+										<div class="pic">
+											<img src="{% static "img/user-3.jpg" %}" alt="">
+										</div>
+										<div class="client-detail">
+											<h3 class="testimonial-title">آدام آلوریام</h3>
+											<span class="post">برنامه نویس وب</span>
+										</div>
+									</div>
+									<p class="description">
+										" ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. "
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</section>	
+			<!-- ============================ Testimonial End ================================== -->
+            {% endblock content %}

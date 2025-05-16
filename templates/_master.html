@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="آکادمی خانم پرگیرین" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- ✅ عنوان صفحه -->
+    <title>
+        {% block title %}اکادمی{% endblock %} | آکادمی خانم پرگیرین
+    </title>
+
+    <!-- ✅ توضیحات صفحه (متای مهم برای سئو) -->
+    <meta name="description" content="{% block meta_description %}توضیح کوتاه درباره این صفحه{% endblock %}">
+
+    <!-- ✅ کلمات کلیدی (اختیاری) -->
+    <meta name="keywords" content="{% block meta_keywords %}کلمات کلیدی مرتبط{% endblock %}">
+
+    <!-- ✅ canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
+
+    <!-- ✅ favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+    <!-- ✅ Open Graph (برای اشتراک در شبکه‌های اجتماعی) -->
+    <meta property="og:title" content="{% block og_title %}اکادمی{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}توضیح کوتاه برای اشتراک‌گذاری{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/logo.png' %}{% endblock %}">
+
+    <!-- ✅ Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}اکادمی{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}توضیح توییتر{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% static 'images/logo.png' %}{% endblock %}">
+
+    <!-- ✅ Structured Data (اختیاری اما مهم برای Google) -->
+    {% block json_ld %}{% endblock %}
+
+    {% include "./_css.html" %}
+</head>
+
+
+	
+    <body class="red-skin rtl">
+	
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div id="preloader"><div class="preloader"><span></span><span></span></div></div>
+		
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+            {% include "./inc/headers.html" %}
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% block content %}
+            {% endblock content %}
+
+
+			<!-- ============================ Footer Start ================================== -->
+            {% include "./inc/footer.html" %}
+
+			<!-- ============================ Footer End ================================== -->
+			
+
+
+			
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+			
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+
+        {% include "./_script.html" %}
+
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+
+	</body>
+</html>

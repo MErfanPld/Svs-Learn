@@ -1,0 +1,66 @@
+{% extends 'auth/_auth.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}ورود{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="col-lg-6 col-md-7 p-4">
+        <form method="post" id="frm" class="bg-white p-4 shadow rounded text-center">
+            {% csrf_token %}
+
+            <!-- لوگو در مرکز -->
+            <div class="mb-4">
+                <a href="/" class="d-block">
+                    <img src="{% static 'img/custom/logo.jpeg' %}" class="img-fluid mx-auto d-block" width="170" alt=""/>
+                </a>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="logs_title">ورود به <span class="theme-cl">حساب کاربری</span></h4>
+            </div>
+
+            {% if messages %}
+                {% for item in messages %}
+                    <p class="text-center text-success">{{ item }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.non_field_errors %}
+                {% for item in form.non_field_errors %}
+                    <p class="text-center text-danger">{{ item|safe }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="form-group mb-3">
+                <label for="id_username">شماره موبایل*</label>
+                <input type="text" required name="username" id="id_username" class="form-control" placeholder="09121111111">
+                {% if form.username.errors %}
+                    <p class="text-danger mt-2">{{ form.username.errors.0|escape }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="id_password">رمز عبور* 
+                    <a href="#" class="float-end">رمز خود را فراموش کرده‌اید؟</a>
+                </label>
+                <input type="password" required id="id_password" name="password" class="form-control" placeholder="*******">
+                {% if form.password.errors %}
+                    <p class="text-danger mt-2">{{ form.password.errors.0|escape }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary w-100">ورود</button>
+            </div>
+
+            <div class="form-group text-center">
+                هنوز ثبت‌نام نکرده‌اید؟ <a href="{% url 'signup' %}" class="text-primary">ثبت نام</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block title %}
+همکاری با ما
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================ Page Title Start================================== -->
+<section class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">همکاری با ما</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">خانه</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">همکاری با ما</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================ Page Title End ================================== -->	
+
+<section class="bg-light">
+    <div class="container">
+    
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2 class="theme-cl"> خدمات ما در <span class="theme-cl">پروژه </span></h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+            
+                <div class="four_slide-dots articles arrow_middle" dir="rtl">
+                    
+                    <!-- Single Slide -->
+                    <div class="singles_items">
+                        <div class="instructor_wrap">
+                            <div class="instructor_thumb">
+                                <a href="instructor-detail.html"><img src="{% static "img/python.png" %}" class="img-fluid" alt=""></a>
+                            </div>
+                            <div class="instructor_caption">
+                                <h4><a href="instructor-detail.html">توسعه وب اپلیکیشن</a></h4>
+                                <span>Python | Django </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="singles_items">
+                        <div class="instructor_wrap">
+                            <div class="instructor_thumb">
+                                <a href="instructor-detail.html"><img src="{% static "img/designer.png" %}" class="img-fluid" alt=""></a>
+                            </div>
+                            <div class="instructor_caption">
+                                <h4><a href="instructor-detail.html">طراحی و گرافیک</a></h4>
+                                <span>UI / UX</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="singles_items">
+                        <div class="instructor_wrap">
+                            <div class="instructor_thumb">
+                                <a href="instructor-detail.html"><img src="{% static "img/content.png" %}" class="img-fluid" alt=""></a>
+                            </div>
+                            <div class="instructor_caption">
+                                <h4><a href="instructor-detail.html">توسعه وب سایت</a></h4>
+                                <span>JavaScript ( React Js , Vue Js )</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="singles_items">
+                        <div class="instructor_wrap">
+                            <div class="instructor_thumb">
+                                <a href="instructor-detail.html"><img src="{% static "img/photo.png" %}" class="img-fluid" alt=""></a>
+                            </div>
+                            <div class="instructor_caption">
+                                <h4><a href="instructor-detail.html">توسعه اپلیکیشن موبایل</a></h4>
+                                <span>Flutter | Kotlin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- ============================ Agency List Start ================================== -->
+<section class="bg-light">
+    <div class="container">
+        <!-- row Start -->
+        <div class="row">
+            <div class="col-lg-12 col-md-7">
+                <div class="prc_wrap">
+                    <div class="prc_wrap_header">
+                        <h4 class="property_block_title">تکمیل فرم درخواست همکاری</h4>
+                    </div>
+                    
+                    <div class="prc_wrap-body">
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                                        {{ form.name }}
+                                        {% if form.name.errors %}
+                                            <p class="text-danger" style="margin-right: 20px!important;">
+                                                {{ form.name.errors.0|escape }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                        {{ form.email }}
+                                        {% if form.email.errors %}
+                                            <p class="text-danger" style="margin-right: 20px!important;">
+                                                {{ form.email.errors.0|escape }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ form.project_type.id_for_label }}">{{ form.project_type.label }}</label>
+                                {{ form.project_type }}
+                                {% if form.project_type.errors %}
+                                    <p class="text-danger" style="margin-right: 20px!important;">
+                                        {{ form.project_type.errors.0|escape }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ form.details.id_for_label }}">{{ form.details.label }}</label>
+                                {{ form.details }}
+                                {% if form.details.errors %}
+                                    <p class="text-danger" style="margin-right: 20px!important;">
+                                        {{ form.details.errors.0|escape }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ form.budget.id_for_label }}">{{ form.budget.label }}</label>
+                                {{ form.budget }}
+                                <small class="form-text text-muted">{{ form.budget.help_text }}</small>
+                                {% if form.budget.errors %}
+                                    <p class="text-danger" style="margin-right: 20px!important;">
+                                        {{ form.budget.errors.0|escape }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ form.contact_method.id_for_label }}">{{ form.contact_method.label }}</label>
+                                {{ form.contact_method }}
+                                {% if form.contact_method.errors %}
+                                    <p class="text-danger" style="margin-right: 20px!important;">
+                                        {{ form.contact_method.errors.0|escape }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <button class="btn btn-theme" type="submit">ارسال درخواست</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /row -->		
+    </div>
+</section>
+<!-- ============================ Agency List End ================================== -->
+
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block title %}
+نقشه راه
+{% endblock %}
+
+{% block meta_description %}آشنایی با اهداف و تیم ما در این صفحه{% endblock %}
+{% block og_title %}درباره ما - برند شما{% endblock %}
+{% block og_description %}اطلاعات درباره تیم ما و خدماتی که ارائه می‌دهیم{% endblock %}
+
+{% block content %}
+
+<section class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">نقشه راه</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">خانه</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">نقشه راه</li>
+                        </ol>
+                    </nav>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pt-0">
+    <div class="container">
+        
+        <div class="row align-items-center">
+        
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap">
+                    <div class="sec-heading mb-3 f-24">
+                        <h2>مسیرهای <span class="theme-cl">یادگیری </span>طراحی سایت</h2>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-desktop"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>نظارت دقیق و ارزیابی عملکرد معلمان</h4>
+                            <p>هر کجای ایران یا دنیا که هستید، معلم های ما به صورت زنده به شما تدریس می کنند.</p>
+                        </div>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-heart"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>شفافیت قیمت و تضمین پایین&zwnj;ترین قیمت&zwnj;ها</h4>
+                            <p>در زمان ثبت درخواست امکان نحوه برگزاری کلاس بصورت حضوری یا آنلاین وجود دارد.</p>
+                        </div>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-harddrives"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>امکان برگزاری کلاس بصورت حضوری یا آنلاین</h4>
+                            <p>از بین بیش از 2000 معلم فعال با استفاده از فیلتر&zwnj;ها بهترین استاد متناسب با شرایط خود را بیابید.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap_img">
+                
+                    <img src="{% static '/img/custom/front_roadmap.png' %}" class="img-fluid" alt="">
+                    
+                </div>
+            </div>
+
+        </div>
+        
+        <br>
+        <hr>
+        <br>
+
+        <div class="row align-items-center">
+        
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap">
+                    <div class="sec-heading mb-3 f-24">
+                        <h2>مسیرهای <span class="theme-cl">یادگیری </span>طراحی سایت</h2>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-desktop"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>نظارت دقیق و ارزیابی عملکرد معلمان</h4>
+                            <p>هر کجای ایران یا دنیا که هستید، معلم های ما به صورت زنده به شما تدریس می کنند.</p>
+                        </div>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-heart"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>شفافیت قیمت و تضمین پایین&zwnj;ترین قیمت&zwnj;ها</h4>
+                            <p>در زمان ثبت درخواست امکان نحوه برگزاری کلاس بصورت حضوری یا آنلاین وجود دارد.</p>
+                        </div>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-harddrives"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>امکان برگزاری کلاس بصورت حضوری یا آنلاین</h4>
+                            <p>از بین بیش از 2000 معلم فعال با استفاده از فیلتر&zwnj;ها بهترین استاد متناسب با شرایط خود را بیابید.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap_img">
+                
+                    <img src="{% static '/img/custom/backend.png' %}" class="img-fluid" alt="">
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <div class="row align-items-center">
+        
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap">
+                    <div class="sec-heading mb-3 f-24">
+                        <h2>مسیرهای <span class="theme-cl">یادگیری </span>طراحی سایت</h2>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-desktop"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>نظارت دقیق و ارزیابی عملکرد معلمان</h4>
+                            <p>هر کجای ایران یا دنیا که هستید، معلم های ما به صورت زنده به شما تدریس می کنند.</p>
+                        </div>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-heart"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>شفافیت قیمت و تضمین پایین&zwnj;ترین قیمت&zwnj;ها</h4>
+                            <p>در زمان ثبت درخواست امکان نحوه برگزاری کلاس بصورت حضوری یا آنلاین وجود دارد.</p>
+                        </div>
+                    </div>
+                    <div class="list_facts">
+                        <div class="list_facts_icons"><i class="ti-harddrives"></i></div>
+                        <div class="list_facts_caption">
+                            <h4>امکان برگزاری کلاس بصورت حضوری یا آنلاین</h4>
+                            <p>از بین بیش از 2000 معلم فعال با استفاده از فیلتر&zwnj;ها بهترین استاد متناسب با شرایط خود را بیابید.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap_img">
+                
+                    <img src="{% static '/img/custom/mobile.png' %}" class="img-fluid" alt="">
+                    
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+</section>
+
+{% endblock  %}

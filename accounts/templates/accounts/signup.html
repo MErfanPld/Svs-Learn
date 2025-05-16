@@ -1,0 +1,99 @@
+{% extends 'auth/_auth.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}ثبت نام{% endblock %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="col-lg-6 col-md-8 col-sm-10 p-4">
+        <form method="post" id="frm" class="bg-white p-4 shadow rounded text-center">
+            {% csrf_token %}
+
+            <!-- لوگو در مرکز -->
+            <div class="mb-4">
+                <a href="/" class="d-block">
+                    <img src="{% static 'img/custom/logo.jpeg' %}" class="img-fluid mx-auto d-block" width="170" alt=""/>
+                </a>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="logs_title">ایجاد یک <span class="theme-cl">حساب کاربری</span></h4>
+            </div>
+
+            {% if messages %}
+                {% for item in messages %}
+                    <p class="text-center text-success">{{ item }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.non_field_errors %}
+                {% for item in form.non_field_errors %}
+                    <p class="text-center text-danger">{{ item|safe }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="row mb-3 text-end">
+                <div class="form-group col-md-6">
+                    <label for="id_first_name" class="d-block text-end">نام *</label>
+                    <input type="text" required name="first_name" id="id_first_name" class="form-control" placeholder="مثلاً علی">
+                    {% if form.first_name.errors %}
+                        <p class="text-danger mt-2">{{ form.first_name.errors.0|escape }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="id_last_name" class="d-block text-end">نام خانوادگی *</label>
+                    <input type="text" required name="last_name" id="id_last_name" class="form-control" placeholder="مثلاً محمدی">
+                    {% if form.last_name.errors %}
+                        <p class="text-danger mt-2">{{ form.last_name.errors.0|escape }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mb-3 text-end">
+                <div class="form-group col-md-6">
+                    <label for="id_email" class="d-block text-end">ایمیل *</label>
+                    <input type="email" required name="email" id="id_email" class="form-control" placeholder="test@gmail.com">
+                    {% if form.email.errors %}
+                        <p class="text-danger mt-2">{{ form.email.errors.0|escape }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="id_phone_number" class="d-block text-end">شماره موبایل *</label>
+                    <input type="text" required name="phone_number" id="id_phone_number" class="form-control" placeholder="09121111111">
+                    {% if form.phone_number.errors %}
+                        <p class="text-danger mt-2">{{ form.phone_number.errors.0|escape }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group mb-3 text-end">
+                <label for="id_password" class="d-block text-end">رمز عبور *</label>
+                <input type="password" required name="password" id="id_password" class="form-control" placeholder="*******">
+                {% if form.password.errors %}
+                    <p class="text-danger mt-2">{{ form.password.errors.0|escape }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group mb-3 text-end">
+                <label for="id_confirm_password" class="d-block text-end">تایید رمز عبور *</label>
+                <input type="password" required name="confirm_password" id="id_confirm_password" class="form-control" placeholder="*******">
+                {% if form.confirm_password.errors %}
+                    <p class="text-danger mt-2">{{ form.confirm_password.errors.0|escape }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary w-100">ثبت‌نام</button>
+            </div>
+
+            <div class="form-group text-center mb-0 mt-3">
+                حساب دارید؟ <a href="{% url 'login' %}" class="text-primary">ورود</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

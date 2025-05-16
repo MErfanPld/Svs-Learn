@@ -1,0 +1,153 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block title %}
+دوره‌های آموزشی آنلاین | {{ courses_count }} دوره فعال
+{% endblock %}
+
+{% block meta_description %}
+در این صفحه {{ courses_count }} دوره آموزشی متنوع با موضوعات مختلف ارائه شده است. دوره‌های آنلاین با اساتید حرفه‌ای و پشتیبانی کامل.
+{% endblock %}
+
+{% block og_title %}
+دوره‌های آموزشی آنلاین | {{ courses_count }} دوره فعال - برند شما
+{% endblock %}
+
+{% block og_description %}
+با شرکت در {{ courses_count }} دوره آموزشی آنلاین ما، مهارت‌های خود را در زمینه‌های مختلف ارتقا دهید و به دانش خود بیفزایید.
+{% endblock %}
+
+{% block content %}
+
+			<!-- ============================ Page Title Start================================== -->
+			<section class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							
+							<div class="breadcrumbs-wrap">
+								<h1 class="breadcrumb-title">دوره های اموزشی</h1>
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="#">خانه</a></li>
+										<li class="breadcrumb-item active" aria-current="page">دوره های اموزشی</li>
+									</ol>
+								</nav>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- ============================ Page Title End ================================== -->			
+
+			
+			<!-- ============================ Full Width Courses  ================================== -->
+			<section class="pt-0">
+				<div class="container">
+					<!-- Row -->
+					<div class="row">	
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="row align-items-center mb-3">
+								<div class="col-lg-6 col-md-6 col-sm-12">
+									<strong>{{ courses_count }}</strong> دوره آموزشی یافت شد.
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12 ordering">
+									<div class="filter_wraps">
+										<div class="dl">
+											<div id="main2">
+												<a href="javascript:void(0)" class="btn btn-theme arrow-btn filter_open" onclick="openNav()" id="open2"><span><i class="fas fa-arrow-alt-circle-right"></i></span>باکس فیلتر</a>
+											</div>
+										</div>
+										<div class="dropdown show">
+											<a class="btn btn-custom dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											دوره های آموزشی
+											</a>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" href="#">پرمخاطب</a>
+											<a class="dropdown-item" href="#">جدید</a>
+											<a class="dropdown-item" href="#">ویژه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Row -->
+							
+							<div class="row">
+						<!-- Cource Grid 1 -->
+                            {% for course in courses %}
+                            <div class="col-lg-4 col-md-6">
+                              <div class="education_block_grid style_2">
+                                <div class="education_block_thumb n-shadow">
+                                  <a href="{% url 'courses:course_detail' course.slug %}"><img src="{{ course.image.url }}" class="img-fluid" alt="{{ course.title }}"></a>
+                                </div>
+                                
+                                <div class="education_block_body">
+                                  <h4 class="bl-title"><a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a></h4>
+                                </div>
+                                
+                                <div class="cources_facts">
+                                  <ul class="cources_facts_list">
+                                    <li class="facts-1">{{ course.category.name }}</li>
+                                    <li class="facts-2">{{ course.get_course_type_display }}</li>
+                                    {% comment %} <li class="facts-5">{{ course.duration }}</li> {% endcomment %}
+                                  </ul>
+                                </div>
+                                
+                                <div class="cources_info">
+                                  <div class="cources_info_first">
+                                    <ul>
+                                      <li><strong>{{ course.total_views }} بازدید</strong></li>
+                                      <li class="theme-cl">{{ course.duration }} ساعت</li>
+                                    </ul>
+                                  </div>
+                                  <div class="cources_info_last">
+                                    <h3>{{ course.price }} تومان</h3>
+                                  </div>
+                                </div>
+                                
+                                <div class="education_block_footer">
+                                  <div class="education_block_author">
+                                    <div class="path-img"><a href="{% url 'courses:course_detail' course.slug %}"></a></div>
+                                    <h5><a href="{% url 'courses:course_detail' course.slug %}">{{ course.instructor.get_full_name }}</a></h5>
+                                  </div>
+                                  <span class="education_block_time"><i class="ti-calendar ml-1"></i>{{ course.created_at|timesince }} پیش</span>
+                                </div>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                          
+                <!-- Pagination -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <ul class="pagination p-center">
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+					
+					</div>
+					<!-- Row -->
+					
+
+        
+        <!-- /Row -->
+
+				</div>
+			</section>
+			<!-- ============================ Full Width Courses End ================================== -->
+{% endblock  %}

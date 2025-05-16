@@ -1,0 +1,89 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block title %}
+لیست وبلاگ
+{% endblock %}
+
+{% block meta_description %}آشنایی با اهداف و تیم ما در این صفحه{% endblock %}
+{% block og_title %}درباره ما - برند شما{% endblock %}
+{% block og_description %}اطلاعات درباره تیم ما و خدماتی که ارائه می‌دهیم{% endblock %}
+
+{% block content %}
+
+<section class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">لیست وبلاگ</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">خانه</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li>
+                        </ol>
+                    </nav>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="pt-0">
+    <div class="container">
+        <div class="row">        
+            <!-- Single Article -->
+            {% if blogs %}
+            {% for blog in blogs %}
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="articles_grid_style">
+                    <div class="articles_grid_thumb">
+                        <a href="{% url 'blogs:detail' blog.slug %}"><img src="{{ blog.get_image }}" class="img-fluid" alt=""></a>
+                    </div>
+                    
+                    <div class="articles_grid_caption">
+                        <h4>{{ blog.title }}</h4>
+                        <br>
+                        <p>{{ blog.content|truncatechars:150 }}</p>
+                        <div class="articles_grid_author">
+                            <h4>{{ blog.category }} | {{ blog.jcreated_at }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+    <p>نتیجه‌ای برای جستجو پیدا نشد.</p>
+{% endif %}
+        </div>
+        
+                <!-- Pagination -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <ul class="pagination p-center">
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- /Row -->
+                
+    </div>
+</section>
+
+{% endblock content %}

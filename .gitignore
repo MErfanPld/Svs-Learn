@@ -1,0 +1,10 @@
+.venv
+/venv
+.venv/*
+.idea
+/.idea/*
+/media
+/media/*
+static/root
+/.env
+.env

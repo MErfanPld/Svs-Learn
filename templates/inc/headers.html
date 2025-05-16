@@ -1,0 +1,49 @@
+{% load static %}
+<div class="header header-light">
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" href="{% url 'core:home' %}">آکادمی ساتراپ ویرا سازان</a>
+                <div class="nav-toggle"></div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
+                
+                    <li class="active"><a href="{% url 'core:home' %}">خانه<span class="submenu-indicator"></span></a>
+                    </li>
+                    
+                    <li><a href="#">دوره های آموزشی<span class="submenu-indicator"></span></a>
+                        <ul class="nav-dropdown nav-submenu">
+                            {% for category in navbar_categories %}
+                            <li><a href="{% url 'courses:category_courses' category.slug %}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    
+                    <li><a href="{% url "core:about_us" %}">درباره با ما</a></li>
+                    <li><a href="{% url "core:contact_us" %}">تماس با ما</a></li>
+                    
+                </ul>
+                
+                <ul class="nav-menu nav-menu-social align-to-left">
+                    {% if request.user.is_authenticated %}
+
+                        <li class="login_click" style="background-color: #C53030">
+                            <a href="{% url "dashboard:dashboard" %}">داشبورد</a>
+                        </li>
+
+                        <li class="login_click ">
+                            <a href="{% url "logout" %}">خروج</a>
+                        </li>
+                    {% else %}
+                        <li class="login_click light">
+                            <a href="{% url 'login' %}">ورود</a>
+                        </li>
+                        <li class="login_click" style="background-color: #C53030">
+                            <a href="{% url 'signup' %}">ثبت نام</a>
+                        </li>
+                    {% endif %}
+            </div>
+        </nav>
+    </div>
+</div>

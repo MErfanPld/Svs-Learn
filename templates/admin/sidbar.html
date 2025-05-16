@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="col-lg-3 col-md-3">
+    <div class="dashboard-navbar">
+        
+        <div class="d-user-avater">
+            {% if user.image %}
+            <img src="{{ user.image.url }}" class="img-fluid avater" alt="">
+        {% else %}
+            <img src="{% static 'default-profile.png' %}" alt="پروفایل پیش‌فرض">
+        {% endif %}
+            <h4>{{ user.get_full_name }}</h4>
+            <span>{{ user.phone_number }}</span>
+        </div>
+        
+        <div class="d-navigation">
+            <ul id="side-menu">
+                <li class="active"><a href="{% url "dashboard:dashboard" %}"><i class="ti-user"></i>داشبورد</a></li>
+                <li><a href="{% url "dashboard:profile_edit" %}"><i class="ti-heart"></i>اکانت من</a></li>
+                <li><a href="{% url "cart:cart_detail" %}"><i class="ti-shopping-cart"></i>سبد خرید من</a></li>
+                <li><a href=""><i class="ti-comment-alt"></i>لیست نظرات</a></li>
+                <li><a href="{% url 'logout' %}"><i class="ti-power-off"></i>خروج</a></li>
+            </ul>
+        </div>
+        
+    </div>
+    
+    
+</div>	

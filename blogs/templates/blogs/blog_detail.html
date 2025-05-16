@@ -1,0 +1,277 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block title %}{{ blog.title }} - وبلاگ{% endblock %}
+{% block meta_description %}{{ blog.content|truncatechars:150 }}{% endblock %}
+{% block og_title %}{{ blog.title }}{% endblock %}
+{% block og_description %}{{ blog.content|truncatechars:150 }}{% endblock %}
+{% block og_image %}{{ blog.get_image.url }}{% endblock %}
+{% block twitter_image %}{{ blog.get_image.url }}{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ blog.title }}",
+  "image": "{{ blog.get_image.url }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ blog.author }}"
+  },
+  "datePublished": "{{ blog.created_at|date:'Y-m-d' }}",
+  "articleBody": "{{ blog.content|truncatechars:250 }}"
+}
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+			<!-- ============================ Page Title Start================================== -->
+			<section class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							
+							<div class="breadcrumbs-wrap">
+								<h1 class="breadcrumb-title">{{ blog.title }}</h1>
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="{% url 'core:home' %}">خانه</a></li>
+										<li class="breadcrumb-item active" aria-current="page">{{ blog.title }}</li>
+									</ol>
+								</nav>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- ============================ Page Title End ================================== -->	
+			
+			<!-- ============================ Agency List Start ================================== -->
+			<section class="gray">
+			
+				<div class="container">
+				
+					<!-- row Start -->
+					<div class="row">
+					
+						<!-- Blog Detail -->
+						<div class="col-lg-8 col-md-12 col-sm-12 col-12">
+							<div class="article_detail_wrapss single_article_wrap format-standard">
+								<div class="article_body_wrap">
+								
+									<div class="article_featured_image">
+										<img class="img-fluid" src="{{blog.get_image}}" alt="">
+									</div>
+									
+									<div class="article_top_info">
+										<ul class="article_middle_info">
+											<li><a href="#"><span class="icons"><i class="ti-user"></i></span>{{ blog.author }}</a></li>
+											<li><a href="#"><span class="icons"><i class="ti-comment-alt"></i></span>دسته بندی ( {{ blog.category }} )</a></li>
+											<li><a href="#"><span class="icons"><i class="ti-comment-alt"></i></span>45 نظر ثبت شده</a></li>
+										</ul>
+									</div>
+									<h2 class="post-title">{{ blog.title }}</h2>
+									<p>{{ blog.content }}</p>
+
+									<div class="single_article_pagination">
+										<div class="prev-post">
+											{% if previous_post %}
+												<a href="{% url 'blogs:detail' previous_post.slug %}" class="theme-bg">
+													<div class="title-with-link">
+														<span class="intro">پست قبلی: {{ previous_post.title }}</span>
+													</div>
+												</a>
+											{% endif %}
+										</div>
+									
+										<div class="article_pagination_center_grid">
+											<a href="{% url 'blogs:list' %}"><i class="ti-layout-grid3"></i></a>
+										</div>
+									
+										<div class="next-post">
+											{% if next_post %}
+												<a href="{% url 'blogs:detail' next_post.slug %}" class="theme-bg">
+													<div class="title-with-link">
+														<span class="intro">پست بعدی: {{ next_post.title }}</span>
+													</div>
+												</a>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- Author Detail -->
+							<div class="article_detail_wrapss single_article_wrap format-standard">
+								
+								<div class="article_posts_thumb">
+									<span class="img"><img class="img-fluid" src="{% static "img/user-1.jpg" %}" alt=""></span>
+									<h3 class="pa-name">{{ blog.author }}</h3>
+									<ul class="social-links">
+										<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+										<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+										<li><a href="#"><i class="fab fa-behance"></i></a></li>
+										<li><a href="#"><i class="fab fa-youtube"></i></a></li>
+										<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+									</ul>
+									<p class="pa-text">در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+								</div>
+								
+							</div>
+							
+							<!-- Blog Comment -->
+							<div class="article_detail_wrapss single_article_wrap format-standard">
+								
+								<div class="comment-area">
+									<div class="all-comments">
+										<h3 class="comments-title">05 دیدگاه</h3>
+										<div class="comment-list">
+											<ul>
+												<li class="article_comments_wrap">
+													<article>
+														<div class="article_comments_thumb">
+															<img src="" alt="">
+														</div>
+														<div class="comment-details">
+															<div class="comment-meta">
+																<div class="comment-left-meta">
+																	<h4 class="author-name">مسعود راد <span class="selected"></span></h4>
+																	<div class="comment-date">19شهریور 1399</div>
+																</div>
+
+															</div>
+															<div class="comment-text">
+																<p>در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+															</div>
+														</div>
+													</article>
+                                                    <article>
+														<div class="article_comments_thumb">
+															<img src="" alt="">
+														</div>
+														<div class="comment-details">
+															<div class="comment-meta">
+																<div class="comment-left-meta">
+																	<h4 class="author-name">مسعود راد <span class="selected"></span></h4>
+																	<div class="comment-date">19شهریور 1399</div>
+																</div>
+
+															</div>
+															<div class="comment-text">
+																<p>در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+															</div>
+														</div>
+													</article>
+                                                    <hr>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="comment-box submit-form">
+										<h3 class="reply-title">ثبت دیدگاه</h3>
+										<div class="comment-form">
+											<form action="#">
+												<div class="row">
+													<div class="col-lg-6 col-md-6 col-sm-12">
+														<div class="form-group">
+															<input type="text" class="form-control" placeholder="نام کامل">
+														</div>
+													</div>
+													<div class="col-lg-6 col-md-6 col-sm-12">
+														<div class="form-group">
+															<input type="text" class="form-control" placeholder="ایمیل معتبر">
+														</div>
+													</div>
+													<div class="col-lg-12 col-md-12 col-sm-12">
+														<div class="form-group">
+															<textarea name="comment" class="form-control" cols="30" rows="6" placeholder="نظر خود را بنویسید..."></textarea>
+														</div>
+													</div>
+													<div class="col-lg-12 col-md-12 col-sm-12">
+														<div class="form-group">
+															<a href="#" class="btn search-btn">ثبت</a>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
+						<!-- Single blog Grid -->
+						<div class="col-lg-4 col-md-12 col-sm-12 col-12">
+							
+							<!-- Searchbard -->
+							<div class="single_widgets widget_search">
+								<h4 class="title">جستجو</h4>
+								<form action="{% url 'blogs:list' %}" method="get" class="sidebar-search-form">
+									<input type="search" name="search" placeholder="عنوان وبلاگ..." value="{{ request.GET.search }}">
+									<button type="submit"><i class="ti-search"></i></button>
+								</form>
+							</div>
+
+							<!-- Categories -->
+							<div class="single_widgets widget_category">
+								<h4 class="title">دسته بندی ها</h4>
+								<ul>
+									{% for category in categories %}
+										<li>
+											<a href="{% url 'blogs:list' %}?category={{ category.slug }}">
+												{{ category.title }}
+												<span>{{ category.post_count }}</span>
+											</a>
+										</li>
+									{% empty %}
+										<li>دسته‌ای یافت نشد.</li>
+									{% endfor %}
+								</ul>
+							</div>
+
+							<!-- Trending Posts -->
+							<div class="single_widgets widget_thumb_post">
+								<h4 class="title">پرمخاطب</h4>
+								<ul>
+									{% for item in popular_blogs %}
+										<li>
+											<span class="left">
+												<img src="{{ item.image.url }}" alt="{{ item.title }}">
+											</span>
+											<span class="right">
+												<a class="feed-title" href="{% url 'blogs:detail' slug=item.slug %}">
+													{{ item.title }}
+												</a> 
+												<span class="post-date">
+													<i class="ti-calendar"></i> {{ item.jcreated_at }} <!-- یا custom filter تاریخ -->
+												</span>
+											</span>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+							
+						</div>
+						
+					</div>
+					<!-- /row -->					
+					
+				</div>
+						
+			</section>
+
+            <script src="{% static "js/jquery.min.js" %} "></script>
+            <script src="{% static "js/popper.min.js" %} "></script>
+            <script src="{% static "js/bootstrap.min.js" %} "></script>
+            <script src="{% static "js/select2.min.js" %} "></script>
+            <script src="{% static "js/slick.js" %} "></script>
+            <script src="{% static "js/jquery.counterup.min.js" %} "></script>
+            <script src="{% static "js/counterup.min.js" %} "></script>
+            <script src="{% static "js/custom.js" %} "></script>
+
+            {% endblock content %}

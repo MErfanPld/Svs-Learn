@@ -1,0 +1,176 @@
+{% extends "admin/_master_admin.html" %}
+{% load static %}
+
+{% block title %} | ویرایش اکانت {% endblock %}
+
+{% block content_admin %}
+
+<div class="col-lg-9 col-md-9 col-sm-12">
+							
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 pb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">خانه</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">سبد خرید من</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- /Row -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="dashboard_container">
+                <div class="dashboard_container_header">
+                    <div class="dashboard_fl_1">
+                        <h4>مشاهده سبد خرید</h4>
+                    </div>
+                </div>
+                <div class="dashboard_container_body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">تصویر</th>
+                                    <th scope="col">عنوان دوره</th>
+                                    <th scope="col">قیمت</th>
+                                    <th scope="col">تعداد</th>
+                                    <th scope="col">مجموع</th>
+                                    <th scope="col">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart.items.all %}
+                                <tr>
+                                    <th scope="row">
+                                    <img src="{{ item.course.image.url }}" alt="{{ item.course.title }}" width="80">
+                                    </th>
+                                    <td>{{ item.course.title }}</td>
+                                    <td>تومان {{ item.course.price }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ cart.total_price|floatformat:0 }} تومان</td>
+
+                                        <td>
+                                            <form method="post" action="{% url 'cart:remove_from_cart' item.id %}">
+                                                {% csrf_token %}
+                                                <button class="btn btn-danger btn-sm" type="submit">حذف</button>
+                                            </form>
+                                        </td>
+                                </tr>
+                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="dashboard_container">
+                <div class="dashboard_container_header">
+                    <div class="dashboard_fl_1">
+                        <h4>اطلاعات خود را ثبت نمایید</h4>
+                    </div>
+                </div>
+                <div class="dashboard_container_body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_full_name">نام کامل</label>
+                                <input type="text" name="full_name" class="form-control" id="id_full_name" placeholder="مثلاً علی رضایی" value="{{ form.full_name.value|default_if_none:'' }}">
+                                {% if form.full_name.errors %}
+                                    <small class="text-danger">{{ form.full_name.errors.0 }}</small>
+                                {% endif %}
+                            </div>
+    
+                            <div class="form-group col-md-6">
+                                <label for="id_phone">شماره تماس (ترجیحاً واتساپ)</label>
+                                <input type="text" name="phone" class="form-control" id="id_phone" placeholder="09121234567" value="{{ form.phone.value|default_if_none:'' }}">
+                                {% if form.phone.errors %}
+                                    <small class="text-danger">{{ form.phone.errors.0 }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+    
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_email">ایمیل</label>
+                                <input type="email" name="email" class="form-control" id="id_email" placeholder="email@example.com" value="{{ form.email.value|default_if_none:'' }}">
+                                {% if form.email.errors %}
+                                    <small class="text-danger">{{ form.email.errors.0 }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+    
+                        <button type="submit" class="btn btn-primary mt-3">ثبت اطلاعات</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content_admin %}
+
+
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">سبد خرید شما</h2>
+
+    {% if cart.items.exists %}
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>تصویر</th>
+                    <th>عنوان دوره</th>
+                    <th>قیمت</th>
+                    <th>تعداد</th>
+                    <th>مجموع</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items.all %}
+                    <tr>
+                        <td>
+                            <img src="{{ item.course.image.url }}" alt="{{ item.course.title }}" width="80">
+                        </td>
+                        <td>{{ item.course.title }}</td>
+                        <td>{{ item.course.price }} تومان</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.quantity|floatformat:2|add:item.course.price|floatformat:2 }} تومان</td>
+                        <td>
+                            <form method="post" action="{% url 'cart:remove_from_cart' item.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger btn-sm" type="submit">حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-end mt-4">
+            <strong>قیمت کل:</strong>
+            {{ cart.total_price }} تومان
+        </div>
+
+        <div class="text-end mt-3">
+            <a href="" class="btn btn-success">پرداخت</a>
+        </div>
+    {% else %}
+        <p>سبد خرید شما خالی است.</p>
+    {% endif %}
+</div>

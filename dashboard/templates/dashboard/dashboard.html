@@ -1,0 +1,114 @@
+{% extends "admin/_master_admin.html" %}
+{% load static %}
+
+{% block title %} داشبورد کاربری {% endblock %}
+
+
+
+{% block content_admin %}
+
+<div class="col-lg-9 col-md-9 col-sm-12">
+							
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 pb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">خانه</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">داشبورد</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- /Row -->
+
+    <div class="row align-items-center">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="dashboard_container">
+                <div class="dashboard_container_body p-4">
+                    <div class="viewer_detail_wraps">
+                        <div class="viewer_detail_thumb">
+
+                            {% if user.image %}
+                                <img src="{{ user.image.url }}" alt="پروفایل">
+                            {% else %}
+                                <img src="{% static 'default-profile.png' %}" alt="پروفایل پیش‌فرض">
+                            {% endif %}
+
+                        </div>
+                        <div class="caption">
+                            <div class="viewer_header">
+                                <h4>{{ user.get_full_name }}</h4>
+                                <span class="viewer_location">{{ user.email }}</span>
+    <br>
+                                <span class="viewer_location">{{ user.phone_number }}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <h4>دوره های خریداری شده من</h4>	
+    </div>
+    
+    {% if enrollments %}
+    <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
+        <div id="three_slide" class="articles" dir="rtl">
+            <!-- Single Slide -->
+            {% for enrollment in enrollments %}
+            <div class="singles_items">
+                <div class="edu-watching">
+                    <div class="property_video sm">
+                        <div class="thumb">
+
+                            <img class="pro_img img-fluid w100" src="{{ enrollment.course.image.url }}" alt="{{ enrollment.course.title }}">
+
+                        </div>
+                        <div class="edu_duration">{{ enrollment.course.duration }}</div>
+                    </div>
+                    <div class="edu_video detail">
+                        <div class="edu_video_header">
+                            <h4><a href="{% url 'courses:course_detail' enrollment.course.slug %}">{{ enrollment.course.title }}</a></h4>
+                        </div>
+                        <div class="edu_video_bottom">
+                            <div class="edu_video_bottom_left">
+                                <span>                                        {% if enrollment.course.videos.count %}
+                                    {{ enrollment.course.videos.count }} ویدیو
+                                    {% else %}
+                                    بدون ویدیو
+                                    {% endif %}</span>	
+                            </div>
+                            <div class="edu_video_bottom_right">
+                                <i class="ti-desktop"></i>{{ enrollment.course.category.name|default:"عمومی" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        شما در هیچ دوره‌ای ثبت‌نام نکرده‌اید.
+        <a href="{% url 'courses:course_list' %}" class="alert-link">مشاهده دوره‌ها</a>
+    </div>
+{% endif %}
+</div>
+<!-- /Row -->
+
+</div>
+
+{% endblock content_admin %}
+
+
+
+
+
