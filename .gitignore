@@ -1,10 +1,64 @@
-.venv
-/venv
-.venv/*
-.idea
-/.idea/*
-/media
-/media/*
-static/root
-/.env
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.log
+
+# Virtualenv
+env/
+venv/
+ENV/
+*.env
+*.venv
+pip-log.txt
+
+# Django
+*.sqlite3
+db.sqlite3
+/media/
+/staticfiles/
+/static_root/
+/media_root/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+*.orig
+
+# dotenv
 .env
+.env.*
+
+# Migrations
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Compiled static files (if using collectstatic)
+staticfiles/
+
+# Gunicorn logs (if used in production)
+gunicorn-error.log
+gunicorn-access.log
+
+# Local settings
+local_settings.py
+settings_local.py
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+.coverage.*
+
+# pytest
+.pytest_cache/
