@@ -8,6 +8,10 @@ class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart', verbose_name='کاربر')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
 
+    class Meta:
+        verbose_name = ' سبد خرید'
+        verbose_name_plural = ' سبد های خرید'
+
     def __str__(self):
         return f"سبد خرید {self.user}"
 
@@ -37,6 +41,10 @@ class Checkout(models.Model):
     phone = models.CharField(max_length=15, verbose_name="شماره تماس")
     email = models.EmailField(verbose_name="ایمیل")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
+
+    class Meta:
+        verbose_name = 'تسویه حساب'
+        verbose_name_plural = 'تسویه حساب ها'
 
     def __str__(self):
         return f"{self.full_name} - {self.phone}"

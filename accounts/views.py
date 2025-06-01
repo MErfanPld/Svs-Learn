@@ -33,3 +33,9 @@ class CustomLoginView(LoginView):
         user = form.get_user()
         login(self.request, user)
         return redirect('core:home') 
+
+
+class LogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+        return redirect('login')

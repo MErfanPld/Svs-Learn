@@ -62,6 +62,6 @@ admin.site.register(Course, CourseAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Enrollment, EnrollmentAdmin)
 
-admin.site.site_header = 'مدیریت سایت فروش دوره‌های آموزشی'
+admin.site.site_header = ' SVS LEARN مدیریت سایت دوره‌های آموزشی'
 admin.site.site_title = 'پنل مدیریت'
-admin.site.index_title = 'مدیریت محتوا'
+admin.site.index_title = 'مدیریت ماژول ها'
