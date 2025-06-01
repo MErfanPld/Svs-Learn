@@ -1,0 +1,12 @@
+{% extends "_master.html" %}
+{% block title %}دسترسی غیرمجاز{% endblock %}
+{% block content %}
+<section class="error-page">
+  <div class="container text-center py-5">
+    <h1 class="display-1 text-warning">403</h1>
+    <h2>دسترسی غیرمجاز</h2>
+    <p>شما اجازه دسترسی به این صفحه را ندارید.</p>
+    <a href="{% url 'core:home' %}" class="btn btn-primary mt-3">بازگشت به خانه</a>
+  </div>
+</section>
+{% endblock %}

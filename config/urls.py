@@ -43,6 +43,10 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
 ]
 
+handler404 = 'core.views.custom_404_view'
+handler500 = 'core.views.custom_500_view'
+handler403 = 'core.views.custom_403_view'
+handler400 = 'core.views.custom_400_view'
 
 if settings.DEBUG:
     # add root static files

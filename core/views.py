@@ -1,5 +1,6 @@
 import random
 from django.db.models import Count
+from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic import FormView
 from django.urls import reverse_lazy
@@ -86,3 +87,16 @@ class ContactUsView(FormView):
         form.save()
         messages.success(self.request, "پیام شما با موفقیت ارسال شد.")
         return super().form_valid(form)
+    
+    
+def custom_404_view(request, exception):
+    return render(request, "core/errors/404.html", status=404)
+
+def custom_500_view(request):
+    return render(request, "core/errors/500.html", status=500)
+
+def custom_403_view(request, exception):
+    return render(request, "core/errors/403.html", status=403)
+
+def custom_400_view(request, exception):
+    return render(request, "core/errors/400.html", status=400)
