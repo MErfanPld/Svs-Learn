@@ -7,7 +7,7 @@
             {% if user.image %}
             <img src="{{ user.image.url }}" class="img-fluid avater" alt="">
         {% else %}
-            <img src="{% static 'default-profile.png' %}" alt="پروفایل پیش‌فرض">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="پروفایل پیش‌فرض">
         {% endif %}
             <h4>{{ user.get_full_name }}</h4>
             <span>{{ user.phone_number }}</span>
