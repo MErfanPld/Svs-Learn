@@ -11,7 +11,7 @@ class CategoryCourse(models.Model):
     slug = models.SlugField(_('اسلاگ'), unique=True)
     image = models.ImageField(
         _('تصویر دسته بندی'), 
-        upload_to=upload_courses_category_image, null=True,blank=True
+        upload_to='courses/', null=True,blank=True
     )
     
     class Meta:
