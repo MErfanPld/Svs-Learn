@@ -4,6 +4,7 @@ from courses.helpers import upload_courses_category_image
 from extenstions.utils import jalali_converter
 from users.models import User
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 class CategoryCourse(models.Model):
     name = models.CharField(_('نام دسته‌بندی'), max_length=100)
@@ -188,3 +189,22 @@ class Enrollment(models.Model):
     def __str__(self):
         return f"{self.student} enrolled in {self.course.title}"
 
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments', verbose_name=_('کاربر'))
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='comments', verbose_name=_('دوره'))
+    content = models.TextField(_('متن کامنت'))
+    created_at = models.DateTimeField(_('تاریخ ایجاد'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('تاریخ ویرایش'), auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = _('کامنت')
+        verbose_name_plural = _('کامنت‌ها')
+
+    def __str__(self):
+        return f'کامنت توسط {self.user} برای {self.course}'
+
+    def jcreated_at(self):
+        return jalali_converter(self.created_at)

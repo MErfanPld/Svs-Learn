@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import CategoryCourse, Course, Video, Enrollment
+from .models import CategoryCourse, Course, Video, Enrollment,Comment
 
 class CategoryCourseAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'course_count')
@@ -56,6 +56,19 @@ class EnrollmentAdmin(admin.ModelAdmin):
     search_fields = ('student__username', 'course__title')
     raw_id_fields = ('student', 'course')
     date_hierarchy = 'enrolled_at'
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'course', 'short_content', 'jcreated_at')
+    list_filter = ('created_at',)
+    search_fields = ('user__username', 'course__title', 'content')
+    readonly_fields = ('user', 'course', 'content', 'jcreated_at')
+
+    def short_content(self, obj):
+        return obj.content[:50] + '...' if len(obj.content) > 50 else obj.content
+    short_content.short_description = 'متن کوتاه'
+
 
 admin.site.register(CategoryCourse, CategoryCourseAdmin)
 admin.site.register(Course, CourseAdmin)

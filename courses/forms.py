@@ -1,5 +1,5 @@
 from django import forms
-from .models import CategoryCourse, Course, Video, Enrollment
+from .models import CategoryCourse, Course, Video, Enrollment, Comment
 from django.contrib.auth.models import User
 
 class CategoryCourseForm(forms.ModelForm):
@@ -55,4 +55,17 @@ class EnrollmentForm(forms.ModelForm):
             'student': forms.Select(attrs={'class': 'form-control'}),
             'course': forms.Select(attrs={'class': 'form-control'}),
             'completed': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+        
+        
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'rows': 4,
+                'class': 'form-control',
+                'placeholder': 'نظر خود را بنویسید...'
+            }),
         }

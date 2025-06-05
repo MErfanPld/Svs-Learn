@@ -6,136 +6,125 @@
 {% endblock %}
 
 {% block content %}
-<!-- ============================ Course Header Info Start ================================== -->
-<div class="image-cover ed_detail_head lg theme-ov" style="background:#f4f4f4 url({% static 'img/banner-4.jpg' %});" data-overlay="8">
+<!-- ============================ Course Detail ================================== -->
+<section class="pt-5">
     <div class="container">
+        
+        <!-- Breadcrumb -->
         <div class="row">
-            <div class="col-lg-7 col-md-9">
-                <div class="ed_detail_wrap light">
-                    <ul class="cources_facts_list">
-                        {% if course.category %}
-                        <li class="facts-1">{{ course.category.name }}</li>
-                        {% endif %}
-                        <li class="facts-5">{{ course.get_course_type_display }}</li>
-                    </ul>
-                    <div class="ed_header_caption">
-                        <h2 class="ed_title">{{ course.title }}</h2>
-                        <ul>
-                            <li><i class="ti-calendar"></i>{{ course.duration }}</li>
-                            <li><i class="ti-control-forward"></i>{{ course.total_videos }} جلسه</li>
-                            <li><i class="ti-user"></i>{{ enrollments_count }} شرکت کننده</li>
-                        </ul>
-                    </div>
-                    
-
-                </div>
+            <div class="col-lg-12 col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb simple">
+                        <li class="breadcrumb-item"><a href="{% url "core:home" %}" class="theme-cl">خانه</a></li>
+                        <li class="breadcrumb-item"><a href="{% url "courses:course_list" %}" class="theme-cl">لیست دوره</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ course.title }}</li>
+                    </ol>
+                </nav>
             </div>
         </div>
-    </div>
-</div>
-<!-- ============================ Course Header Info End ================================== -->
-
-<!-- ============================ Course Detail ================================== -->
-<section class="bg-light">
-    <div class="container">
+        
         <div class="row">
+        
             <div class="col-lg-8 col-md-8">
-                <!-- اطلاعات کلی دوره -->
+            
+                <!-- Course Header -->
+                <div class="inline_edu_wraps mb-4">
+                    <h2>{{ course.title }}</h2>
+                    <div class="ed_rate_info">
+                        {% if course.category %}
+                        <span class="ml-2 text-danger bg-light-danger px-2 py-1 rounded">{{ course.category.name }}</span>
+                        {% endif %}
+                        <div class="review_counter mr-2">
+                            {% comment %} <strong class="good">4.5</strong> {% endcomment %}
+                        </div>
+                        <div class="star_info">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Info -->
                 <div class="inline_edu_wrap">
                     <div class="inline_edu_first">
-                        <h4>{{ course.title }}</h4>
-                        <ul class="edu_inline_info">
-                            <li><i class="ti-calendar"></i>{{ course.duration }}</li>
-                            <li><i class="ti-control-forward"></i>{{ course.total_videos }} جلسه</li>
-                            <li><i class="ti-user"></i>{{ enrollments_count }} شرکت کننده</li>
-                        </ul>
+                        <div class="instructor_dark_info">
+                            <ul>
+                                <li>
+                                    <span>آخرین آپدیت</span>
+                                    {{ course.updated_at|date:"Y/m/d" }}
+                                </li>
+                                <li>
+                                    <span>سطح دوره</span>
+                                    {{ course.get_level_display|default:"پایه" }}
+                                </li>
+                                <li>
+                                    <span>شرکت کننده</span>
+                                    {{ enrollments_count }}
+                                </li>
+                                <li>
+                                    <span>زبان</span>
+                                    فارسی
+                                </li>
+                            </ul>
+                        </div>
                     </div>    
                     <div class="inline_edu_last">
-                        <h4 class="edu_price">{{ course.price }} تومان</h4>
-                        <form method="post" action="{% url 'cart:add_to_cart' course.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-theme enroll-btn">افزودن به سبد خرید <i class="ti-angle-left"></i></button>
-                        </form>
+                        <a href="#" class="btn btn-light"><i class="fa fa-heart ml-2"></i>افزودن به موردعلاقه</a>
                     </div>
                 </div>
-                <div class="property_video xl">
+                
+                <!-- Course Video/Image -->
+                <div class="property_video xl mb-4">
                     <div class="thumb">
-                        <img class="pro_img img-fluid w100" src="{{ course.image.url }}" alt="7.jpg">
-                    </div>
-                    
-                    <div class="instructor_over_info">
-                        <ul>
-                            <li>
-                                <div class="ins_info">
-                                    <div class="ins_info_caption">
-                                        <span>مدرس</span>
-                                        <h4>{{ course.instructor.get_full_name }}</h4>
+                        <img class="pro_img img-fluid w100" src="{{ course.image.url }}" alt="{{ course.title }}">
+                        {% if course.promo_video %}
+                        <div class="overlay_icon">
+                            <div class="bb-video-box">
+                                <div class="bb-video-box-inner">
+                                    <div class="bb-video-box-innerup">
+                                        <a href="{{ course.promo_video }}" data-toggle="modal" data-target="#popup-video" class="theme-cl"><i class="ti-control-play"></i></a>
                                     </div>
                                 </div>
-                            </li>
-                            <li>
-                                <span>دسته بندی</span>
-                                {{ course.category.name }}                            </li>
-                            <li>
-                                <span>نوع اموزش</span>
-                                {{ course.get_course_type_display }}
-                            </li>
-                        </ul>
-                    </div>
-                    
-                </div>
-                <!-- تب‌های اطلاعات دوره -->
-                <div class="tab_box_info mt-4">
-                    <ul class="nav nav-pills mb-3 light" id="pills-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="overview-tab" data-toggle="pill" href="#overview" role="tab" aria-controls="overview" aria-selected="true">توضیحات</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="curriculum-tab" data-toggle="pill" href="#curriculum" role="tab" aria-controls="curriculum" aria-selected="false">جلسات دوره</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="instructor-tab" data-toggle="pill" href="#instructor" role="tab" aria-controls="instructor" aria-selected="false">مدرس</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="reviews-tab" data-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">دیدگاه</a>
-                        </li>
-                    </ul>
-                
-                    <div class="tab-content" id="pills-tabContent">
-                        <!-- تب توضیحات -->
-                        <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-                            <div class="edu_wraper">
-                                <h4 class="edu_title">توضیحات</h4>
-                                <p>{{ course.description|linebreaks }}</p>
                             </div>
                         </div>
-                        
-                        <!-- تب جلسات دوره -->
-                        <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum-tab">
-                            <div class="edu_wraper">
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Course Description -->
+                <div class="edu_wraper border">
+                    <h4 class="edu_title">توضیحات</h4>
+                    <p>{{ course.description|linebreaks }}</p>        
+                    
+                    {% if course.requirements %}
+                    <h6>پیشنیازهای این دوره</h6>
+                    <ul class="lists-3">
+                        {% for req in course.requirements_as_list %}
+                        <li>{{ req }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                
+                <!-- Course Curriculum -->
+<div class="edu_wraper border">
                                 <h4 class="edu_title">جلسات دوره</h4>
-                                <div id="accordionExample" class="accordion shadow circullum">
+                                <div class="accordion shadow circullum" id="accordionExample">
                                     {% for video in videos %}
                                     <div class="card">
-                                        <div id="heading{{ forloop.counter }}" class="card-header bg-white shadow-sm border-0">
+                                        <div class="card-header bg-white shadow-sm border-0" id="heading{{ forloop.counter }}">
                                             <h6 class="mb-0 accordion_title">
-                                                <a href="#" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" 
-                                                   aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" 
-                                                   aria-controls="collapse{{ forloop.counter }}" 
-                                                   class="d-block position-relative text-dark collapsible-link py-2">
+                                                <a class="d-block text-dark collapsible-link py-2" data-toggle="collapse" href="#collapse{{ forloop.counter }}" aria-expanded="{{ forloop.first|yesno:'true,false' }}">
                                                     جلسه {{ forloop.counter }}: {{ video.title }}
                                                 </a>
                                             </h6>
                                         </div>
-                                        <div id="collapse{{ forloop.counter }}" 
-                                             aria-labelledby="heading{{ forloop.counter }}" 
-                                             data-parent="#accordionExample" 
-                                             class="collapse {% if forloop.first %}show{% endif %}">
-                                            <div class="card-body pl-3 pr-3">
-                                                <div class="lectures_lists_title">
-                                                    <i class="ti-control-play"></i>
-                                                    مدت زمان: {{ video.duration }}
-                                                </div>
+                                        <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <p><i class="ti-control-play"></i> مدت زمان: {{ video.duration }}</p>
                                                 {% if video.is_free %}
                                                 <a href="{{ video.video_file.url }}" class="btn btn-sm btn-success">مشاهده رایگان</a>
                                                 {% endif %}
@@ -145,37 +134,14 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- تب مدرس -->
-                        <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
-                            <div class="single_instructor">
-                                <div class="single_instructor_thumb">
-                                    <a href="#">
-                                        <img src="{{ course.instructor.profile.image.url|default:'assets/img/user-3.jpg' }}" 
-                                             class="img-fluid" alt="{{ course.instructor.get_full_name }}">
-                                    </a>
-                                </div>
-                                <div class="single_instructor_caption">
-                                    <h4><a href="#">{{ course.instructor.get_full_name }}</a></h4>
-                                    <ul class="instructor_info">
-                                        <li><i class="ti-video-camera"></i>{{ course.instructor.courses.count }} دوره</li>
-                                        <li><i class="ti-control-forward"></i>{{ course.total_videos }} جلسه</li>
-                                        <li><i class="ti-user"></i>آخرین آپدیت: {{ course.updated_at|date:"Y/m/d" }}</li>
-                                    </ul>
-                                    <p>{{ course.instructor.profile.bio|default:"مدرس این دوره" }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade active show" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" aria-expanded="true">
-										
-                            <!-- Overall Reviews -->
-                <div class="rating-overview">
+                
+                <!-- Reviews Section -->
+                <div class="rating-overview border">
                     <div class="rating-overview-box">
                         <span class="rating-overview-box-total">4.2</span>
                         <span class="rating-overview-box-percent">از امتیاز 5</span>
-                        <div class="star-rating" data-rating="5"><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i>
+                        <div class="star-rating" data-rating="5">
+                            <i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i>
                         </div>
                     </div>
 
@@ -219,105 +185,111 @@
                     </div>
                 </div>
                 
-                            <!-- Reviews -->
-                <div class="list-single-main-item fl-wrap">
-                    <div class="list-single-main-item-title fl-wrap">
-                        <h3>تاکنون <span> 3 </span> دیدگاه ثبت شده است!</h3>
+                <!-- Instructor Section -->
+                <div class="single_instructor border">
+                    <div class="single_instructor_thumb">
+                        <a href="#">
+                            <img src="{{ course.instructor.profile.image.url|default:'assets/img/user-3.jpg' }}" 
+                                 class="img-fluid" alt="{{ course.instructor.get_full_name }}">
+                        </a>
                     </div>
-                    <div class="reviews-comments-wrap">
-                        <!-- reviews-comments-item -->  
-                        <div class="reviews-comments-item">
-                            <div class="review-comments-avatar">
-                                <img src="assets/img/user-1.jpg" class="img-fluid" alt=""> 
-                            </div>
-                            <div class="reviews-comments-item-text">
-                                <h4><a href="#">محمد خاکپور</a><span class="reviews-comments-item-date"><i class="ti-calendar theme-cl"></i>10 بهمن 1399</span></h4>
-                                
-                                <div class="listing-rating high" data-starrating2="5"><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><span class="review-count">4.9</span> </div>
-                                <div class="clearfix"></div>
-                                <p>"ظاهرا آموزش کاملی بنظر میاد و میخوام بخرم ولی کاش بجای ساخت فروشگاه، پلاگین نویسی برا ووکامرس رو هم توضیح میدادین، البته میتونین تکمیل کنین این دوره رو و آپدیت کنین"</p>
-                                <div class="pull-left reviews-reaction">
-                                    <a href="#" class="comment-like active"><i class="ti-thumb-up"></i> 12</a>
-                                    <a href="#" class="comment-dislike active"><i class="ti-thumb-down"></i> 1</a>
-                                    <a href="#" class="comment-love active"><i class="ti-heart"></i> 07</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Submit Reviews -->
-                <div class="edu_wraper">
-                    <h4 class="edu_title">ارسال نظر شما</h4>
-                    <div class="review-form-box form-submit">
-                        <form>
-                            <div class="row">
-                                
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>نام</label>
-                                        <input class="form-control" type="text" placeholder="نام شما">
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>ایمیل</label>
-                                        <input class="form-control" type="email" placeholder="ایمیل شما">
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <label>متن دیدگاه</label>
-                                        <textarea class="form-control ht-140" placeholder="دیدگاه خود را وارد نمایید"></textarea>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-theme">ثبت دیدگاه</button>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- سایدبار -->
-            <div class="col-lg-4 col-md-4">
-                <div class="ed_view_box style_3">
-                    <div class="ed_view_price pr-4">
-                        <span>قیمت آموزش</span>
-                        <h2 class="theme-cl">{{ course.price }} تومان</h2>
-                    </div>
-                    
-                    <div class="ed_view_short pl-4 pr-4 pb-2">
-                        <p>{{ course.description|truncatewords:30 }}</p>
-                    </div>
-                    
-                    <div class="ed_view_features half_list pl-4 pr-3">
-                        <span>مشخصات آموزش</span>
-                        <ul>
-                            <li><i class="ti-user"></i>{{ enrollments_count }} شرکت کننده</li>
-                            <li><i class="ti-time"></i>{{ course.duration }} ساعت</li>
-                            <li><i class="ti-bar-chart-alt"></i>{{ course.get_course_type_display }}</li>
-                            <li><i class="ti-cup"></i>ارائه مدرک</li>
+                    <div class="single_instructor_caption">
+                        <h4><a href="#">{{ course.instructor.get_full_name }}</a></h4>
+                        <ul class="instructor_info">
+                            <li><i class="ti-video-camera"></i>{{ course.instructor.courses.count }} دوره</li>
+                            <li><i class="ti-control-forward"></i>{{ course.total_videos }} جلسه</li>
+                        </ul>
+                        <p>{{ course.instructor.profile.bio|default:"مدرس این دوره" }}</p>
+                        <ul class="social_info">
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter"></i></a></li>
+                            <li><a href="#"><i class="ti-linkedin"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
                         </ul>
                     </div>
-                    <div class="ed_view_link">
+                </div>
+                
+                <!-- Reviews List -->
+
+                <!-- Comments --> <div class="edu_wraper border mb-4"> <h4 class="edu_title">دیدگاه‌ها</h4> <!-- List --> <div class="reviews-comments-wrap"> {% for comment in comments %} <div class="reviews-comments-item"> <div class="review-comments-avatar"> <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="img-fluid" alt=""> </div> <div class="reviews-comments-item-text"> <h4> <a>{{ comment.user.get_full_name|default:comment.user }}</a> <span class="reviews-comments-item-date"> {{ comment.jcreated_at }} </span> </h4> <p>{{ comment.content|linebreaks }}</p> </div> </div> {% empty %} <p>هنوز دیدگاهی ثبت نشده است.</p> {% endfor %} </div> <!-- Form --> {% if user.is_authenticated %} <div class="review-form-box mt-4"> <form method="post"> {% csrf_token %} {{ comment_form.non_field_errors }} <div class="form-group"> <label for="{{ comment_form.content.id_for_label }}">متن دیدگاه</label> {{ comment_form.content }} {{ comment_form.content.errors }} </div> <button type="submit" class="btn btn-theme">ثبت دیدگاه</button> </form> </div> {% else %} <p class="text-danger mt-3">برای ارسال دیدگاه لطفاً <a href="{% url 'login' %}?next={{ request.path }}">وارد شوید</a>.</p> {% endif %} </div>
+                
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4 col-md-4">
+                <!-- Course Info Box -->
+                <div class="ed_view_box style_3 border py-3">
+                    <div class="ed_view_price pr-4">
+                        <span>قیمت آموزش</span>
+                        <h2 class="theme-cl mb-0">{{ course.price }} تومان</h2>
+                        {% if course.discount_price %}
+                        <div class="offer-box">
+                            <span class="old-prc">{{ course.discount_price }}ت</span>
+                            <span class="offer-box">{{ course.discount_percentage }}% تخفیف</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="ed_view_short pl-4 pr-4 pb-2 b-b">
+                        <p>{{ course.short_description|default:course.description|truncatewords:30 }}</p>
+                    </div>
+                    
+                    <div class="p-4">
+                        <h5 class="edu_title">ویژگی های دوره</h5>
+                        <ul class="edu_list right">
+                            <li><i class="ti-user"></i>شرکت کنندگان:<strong>{{ enrollments_count }} نفر</strong></li>
+                            <li><i class="ti-files"></i>تعداد جلسات:<strong>{{ course.total_videos }}</strong></li>
+                            <li><i class="ti-time"></i>مدت دوره:<strong>{{ course.duration }} ساعت</strong></li>
+                            <li><i class="ti-tag"></i>سطح دوره:<strong>{{ course.get_level_display|default:"مقدماتی" }}</strong></li>
+                            <li><i class="ti-flag-alt"></i>زبان:<strong>فارسی</strong></li>
+                            <li><i class="ti-shine"></i>نوع دوره:<strong>{{ course.get_course_type_display }}</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ed_view_link pb-3">
                         <form method="post" action="{% url 'cart:add_to_cart' course.id %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-theme enroll-btn">افزودن به سبد خرید <i class="ti-angle-left"></i></button>
                         </form>
+                        <a href="#" class="btn btn-outline-theme enroll-btn">پیش نمایش رایگان <i class="ti-angle-left"></i></a>
+                    </div>
+                    
+                    <!-- Instructor Info -->
+                    <div class="px-4 pt-4 pb-0 b-t">
+                        <h5 class="mb-3">درباره مدرس</h5>
+                        <div class="ins_info">
+                            <div class="ins_info_thumb">
+                                <img src="{{ course.instructor.profile.image.url|default:'assets/img/user-8.jpg' }}" class="img-fluid" alt="{{ course.instructor.get_full_name }}">
+                            </div>
+                            <div class="ins_info_caption">
+                                <h4 class="text-dark">{{ course.instructor.get_full_name }}</h4>
+                                <span class="text-dark">{{ course.instructor.profile.title|default:"مدرس دوره" }}</span>
+                            </div>
+                        </div>
+                        <div class="inline_edu_wrap mt-4">
+                            <div class="inline_edu_first">
+                                <div class="ed_rate_info">
+                                    <div class="review_counter mr-2">
+                                        <strong class="good">4.5</strong>
+                                    </div>
+                                    <div class="star_info">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="inline_edu_last">
+                                <i class="fa fa-file ml-2"></i>{{ course.instructor.courses.count }} دوره
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<!-- ============================ Course Detail ================================== -->
 {% endblock %}

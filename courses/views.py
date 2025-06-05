@@ -1,7 +1,10 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import *
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import FormMixin
+
+from courses.forms import CommentForm
 from .models import CategoryCourse, Course, Video, Enrollment
 
 # ================================== Category Views ==================================
@@ -37,22 +40,44 @@ class CourseListView(ListView):
         return queryset
 
 
-class CourseDetailView(DetailView):
+class CourseDetailView(FormMixin, DetailView):
     model = Course
     template_name = 'courses/course_detail.html'
     context_object_name = 'course'
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        obj.increase_views() 
+        obj.increase_views()
         return obj
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['videos'] = self.object.videos.all().order_by('order')
-        context['enrollments_count'] = Enrollment.objects.filter(course=self.object).count()
+        course = self.get_object()
+        context['videos'] = course.videos.all().order_by('order')
+        context['enrollments_count'] = Enrollment.objects.filter(course=course).count()
+        context['comments'] = course.comments.all()
+        context['comment_form'] = self.get_form()
         return context
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        if not request.user.is_authenticated:
+            return redirect('login') 
+
+        form = self.get_form()
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.course = self.object
+            comment.save()
+            return redirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
 
 
 class RegistrationConditionsView(LoginRequiredMixin, ListView):
