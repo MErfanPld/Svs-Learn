@@ -4767,9 +4767,9 @@ ul.cources_facts_list li:after {
     display: flex;
     justify-content: center;
     margin-left: 12px;
-    background: rgba(0, 186, 116,0.1);
+    background: #c53030;
     border-radius: 50%;
-    color: #00ba74;
+    color: #ffff;
     font-size: 1.3rem;
 }
 .light-colors .trips_icons {
