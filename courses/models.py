@@ -50,10 +50,9 @@ class Course(models.Model):
         max_length=20, 
         choices=COURSE_TYPES
     )
-    price = models.DecimalField(
+    price = models.CharField(
         _('قیمت'), 
-        max_digits=10, 
-        decimal_places=2
+        max_length=20, 
     )
     duration = models.CharField(
         _('مدت زمان دوره'), 
