@@ -41,6 +41,7 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls',namespace='dashboard')),
     path('chat/whatsapp/', include('chat.urls')),
     path('cart/', include('cart.urls')),
+    path('faq/', include('faq.urls')),
 ]
 
 handler404 = 'core.views.custom_404_view'
