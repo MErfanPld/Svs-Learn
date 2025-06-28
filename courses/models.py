@@ -5,6 +5,7 @@ from extenstions.utils import jalali_converter
 from users.models import User
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from ckeditor.fields import RichTextField  
 
 class CategoryCourse(models.Model):
     name = models.CharField(_('نام دسته‌بندی'), max_length=100)
@@ -31,7 +32,7 @@ class Course(models.Model):
     
     title = models.CharField(_('عنوان دوره'), max_length=200)
     slug = models.SlugField(_('اسلاگ'), unique=True)
-    description = models.TextField(_('توضیحات دوره'))
+    description = RichTextField(_('توضیحات دوره'))
     instructor = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

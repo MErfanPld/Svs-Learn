@@ -13,7 +13,9 @@ defusedxml==0.7.1
 Django==5.2
 django-allauth==65.8.0
 django-autoslug==1.9.9
+django-ckeditor==6.7.3
 django-crispy-forms==2.4
+django-js-asset==3.1.2
 django-sslserver==0.22
 Faker==37.1.0
 frozenlist==1.6.0

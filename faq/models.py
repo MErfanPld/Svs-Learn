@@ -1,11 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-# Create your models here.
+from ckeditor.fields import RichTextField  
 
 class Faq(models.Model):
     title = models.CharField(_('عنوان سوال'), max_length=100)
-    body = models.TextField(_('متن'))
+    body = RichTextField(_('متن')) 
     
     class Meta:
         verbose_name = _('سوالات متداول')

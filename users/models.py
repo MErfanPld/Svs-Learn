@@ -23,6 +23,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[mobile_regex]
     )
     email = models.EmailField(_('ایمیل'), null=True, blank=True, unique=True)
+    bio = models.TextField(_('بایو'),  null=True, blank=True,)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="تاریخ ویرایش")
     is_owner = models.BooleanField(_('مالک هست؟'), default=False)

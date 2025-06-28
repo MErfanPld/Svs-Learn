@@ -97,7 +97,7 @@
                 <!-- Course Description -->
                 <div class="edu_wraper border">
                     <h4 class="edu_title">توضیحات</h4>
-                    <p>{{ course.description|linebreaks }}</p>        
+                    <p>{{ course.description |safe }}</p>        
                     
                     {% if course.requirements %}
                     <h6>پیشنیازهای این دوره</h6>
@@ -189,8 +189,9 @@
                 <div class="single_instructor border">
                     <div class="single_instructor_thumb">
                         <a href="#">
-                            <img src="{{ course.instructor.profile.image.url|default:'assets/img/user-3.jpg' }}" 
-                                 class="img-fluid" alt="{{ course.instructor.get_full_name }}">
+                            <img                 src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                alt="پروفایل پیش‌فرض"
+                                 class="img-fluid" >
                         </a>
                     </div>
                     <div class="single_instructor_caption">
@@ -199,13 +200,13 @@
                             <li><i class="ti-video-camera"></i>{{ course.instructor.courses.count }} دوره</li>
                             <li><i class="ti-control-forward"></i>{{ course.total_videos }} جلسه</li>
                         </ul>
-                        <p>{{ course.instructor.profile.bio|default:"مدرس این دوره" }}</p>
-                        <ul class="social_info">
+                        <p>{{ course.instructor.bio|default:"مدرس این دوره" }}</p>
+                        {% comment %} <ul class="social_info">
                             <li><a href="#"><i class="ti-facebook"></i></a></li>
                             <li><a href="#"><i class="ti-twitter"></i></a></li>
                             <li><a href="#"><i class="ti-linkedin"></i></a></li>
                             <li><a href="#"><i class="ti-instagram"></i></a></li>
-                        </ul>
+                        </ul> {% endcomment %}
                     </div>
                 </div>
                 
@@ -231,7 +232,7 @@
                     </div>
                     
                     <div class="ed_view_short pl-4 pr-4 pb-2 b-b">
-                        <p>{{ course.short_description|default:course.description|truncatewords:30 }}</p>
+                        <p>{{ course.short_description|default:course.description|truncatewords:30|safe }}</p>
                     </div>
                     
                     <div class="p-4">
