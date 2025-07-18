@@ -3,6 +3,7 @@ from django.views.generic import *
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormMixin
+from django.db.models import Count, Q
 
 from courses.forms import CommentForm
 from .models import CategoryCourse, Course, Video, Enrollment
@@ -82,7 +83,7 @@ class CourseDetailView(FormMixin, DetailView):
 
 class RegistrationConditionsView(LoginRequiredMixin, ListView):
     template_name = 'courses/registration_conditions.html'
-    model = Enrollment  # اضافه کردن این خط
+    model = Enrollment  
     context_object_name = 'enrollments'
 
     def get_queryset(self):
@@ -91,3 +92,47 @@ class RegistrationConditionsView(LoginRequiredMixin, ListView):
             is_approved=True
         ).select_related('course')
     
+
+class CourseTypeListView(ListView):
+    model = Course
+    template_name = 'courses/course_list.html'
+    context_object_name = 'courses'
+    paginate_by = 10
+
+    def get_queryset(self):
+        course_type = self.kwargs.get('course_type')
+        category_ids = self.request.GET.getlist('category')
+        search_query = self.request.GET.get('search', '')
+
+        queryset = Course.objects.filter(course_type=course_type, is_active=True)
+
+        if category_ids:
+            queryset = queryset.filter(category_id__in=category_ids)
+
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        sort = self.request.GET.get('sort')
+        if sort == 'popular':
+            queryset = queryset.order_by('-views')
+        elif sort == 'new':
+            queryset = queryset.order_by('-created_at')
+        elif sort == 'special':
+            queryset = queryset.filter(is_special=True)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['selected_categories'] = self.request.GET.getlist('category')
+        context['search_query'] = self.request.GET.get('search', '')
+        context['selected_type'] = self.kwargs.get('course_type')
+
+        categories = CategoryCourse.objects.annotate(
+            count=Count('courses', filter=Q(courses__is_active=True, courses__course_type=self.kwargs.get('course_type')))
+        )
+
+        context['categories'] = categories
+
+        return context

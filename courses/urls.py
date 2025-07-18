@@ -12,9 +12,7 @@ urlpatterns = [
     path('<slug:slug>/', CourseDetailView.as_view(), name='course_detail'),
     
     # Filter URLs
-    path('in-person/', CourseListView.as_view(), name='in_person_courses'),
-    path('online/', CourseListView.as_view(), name='online_courses'),
-    path('offline/', CourseListView.as_view(), name='offline_courses'),
+    path('type/<str:course_type>/', CourseTypeListView.as_view(), name='course_by_type'),
     
     path('registration-conditions/', RegistrationConditionsView.as_view(), name='registration_conditions'),
 ]

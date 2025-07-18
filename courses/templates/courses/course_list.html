@@ -26,11 +26,11 @@
 						<div class="col-lg-12 col-md-12">
 							
 							<div class="breadcrumbs-wrap">
-								<h1 class="breadcrumb-title">دوره های اموزشی</h1>
+								<h1 class="breadcrumb-title">دوره های آموزشی</h1>
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a href="#">خانه</a></li>
-										<li class="breadcrumb-item active" aria-current="page">دوره های اموزشی</li>
+										<li class="breadcrumb-item active" aria-current="page">دوره های آموزشی</li>
 									</ol>
 								</nav>
 							</div>
@@ -52,25 +52,33 @@
 								<div class="col-lg-6 col-md-6 col-sm-12">
 									<strong>{{ courses_count }}</strong> دوره آموزشی یافت شد.
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-12 ordering">
-									<div class="filter_wraps">
-										<div class="dl">
-											<div id="main2">
-												<a href="javascript:void(0)" class="btn btn-theme arrow-btn filter_open" onclick="openNav()" id="open2"><span><i class="fas fa-arrow-alt-circle-right"></i></span>باکس فیلتر</a>
-											</div>
-										</div>
-										<div class="dropdown show">
-											<a class="btn btn-custom dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											دوره های آموزشی
-											</a>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" href="#">پرمخاطب</a>
-											<a class="dropdown-item" href="#">جدید</a>
-											<a class="dropdown-item" href="#">ویژه</a>
-											</div>
-										</div>
-									</div>
-								</div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 ordering">
+                    <div class="filter_wraps">
+                        <div class="dl">
+                            <div id="main2">
+                                <a href="javascript:void(0)" class="btn btn-theme arrow-btn filter_open" onclick="openNav()" id="open2">
+                                    <span><i class="fas fa-arrow-alt-circle-right"></i></span> فیلتر
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- فیلتر دسته‌بندی به صورت فرم -->
+                        <form method="get" id="category-filter-form">
+                            <select name="category" class="form-control" onchange="this.form.submit()">
+                                <option value="">همه دسته‌بندی‌ ها</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                                        {{ cat.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+
+
+
 							</div>
 							<!-- /Row -->
 							
@@ -149,5 +157,6 @@
 
 				</div>
 			</section>
-			<!-- ============================ Full Width Courses End ================================== -->
-{% endblock  %}
+
+  
+      {% endblock  %}

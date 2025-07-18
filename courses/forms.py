@@ -38,7 +38,7 @@ class CourseForm(forms.ModelForm):
 class VideoForm(forms.ModelForm):
     class Meta:
         model = Video
-        fields = ['course', 'title', 'video_file', 'duration', 'order', 'is_free']
+        fields = ['course', 'title','order', 'is_free']
         widgets = {
             'course': forms.Select(attrs={'class': 'form-control'}),
             'title': forms.TextInput(attrs={'class': 'form-control'}),

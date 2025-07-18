@@ -6,6 +6,8 @@ from users.models import User
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from ckeditor.fields import RichTextField  
+from multiselectfield import MultiSelectField
+
 
 class CategoryCourse(models.Model):
     name = models.CharField(_('نام دسته‌بندی'), max_length=100)
@@ -127,13 +129,13 @@ class Video(models.Model):
         _('عنوان ویدیو'), 
         max_length=200
     )
-    video_file = models.FileField(
-        _('فایل ویدیو'), 
-        upload_to='videos/'
-    )
-    duration = models.DurationField(
-        _('مدت زمان ویدیو')
-    )
+    # video_file = models.FileField(
+    #     _('فایل ویدیو'), 
+    #     upload_to='videos/'
+    # )
+    # duration = models.DurationField(
+    #     _('مدت زمان ویدیو')
+    # )
     order = models.PositiveIntegerField(
         _('ترتیب نمایش'), 
         default=0

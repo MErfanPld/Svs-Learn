@@ -55,6 +55,7 @@ class HomeView(TemplateView):
         return context
     
 
+
 class SearchResultsView(ListView):
     template_name = 'core/search_results.html'
     context_object_name = 'courses'

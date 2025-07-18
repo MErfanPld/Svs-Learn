@@ -124,7 +124,7 @@
                                         </div>
                                         <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" data-parent="#accordionExample">
                                             <div class="card-body">
-                                                <p><i class="ti-control-play"></i> مدت زمان: {{ video.duration }}</p>
+                                                {% comment %} <p><i class="ti-control-play"></i> توضیحات: {{ video. }}</p> {% endcomment %}
                                                 {% if video.is_free %}
                                                 <a href="{{ video.video_file.url }}" class="btn btn-sm btn-success">مشاهده رایگان</a>
                                                 {% endif %}

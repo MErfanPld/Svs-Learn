@@ -15,9 +15,9 @@
                     
                     <li><a href="#">دوره های آموزشی<span class="submenu-indicator"></span></a>
                         <ul class="nav-dropdown nav-submenu">
-                            {% for category in navbar_categories %}
-                            <li><a href="{% url 'courses:category_courses' category.slug %}">{{ category.name }}</a></li>
-                            {% endfor %}
+                            <li><a href="{% url 'courses:course_by_type' 'in_person' %}">دوره‌های حضوری</a></li>
+                            <li><a href="{% url 'courses:course_by_type' 'online' %}">دوره‌های آنلاین</a></li>
+                            <li><a href="{% url 'courses:course_by_type' 'offline' %}">دوره‌های آفلاین</a></li>
                         </ul>
                     </li>
                     

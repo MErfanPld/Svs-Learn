@@ -15,7 +15,7 @@ class CategoryCourseAdmin(admin.ModelAdmin):
 class VideoInline(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'video_file', 'duration', 'order', 'is_free')
+    fields = ('title', 'order', 'is_free')
     ordering = ('order',)
 
 class CourseAdmin(admin.ModelAdmin):
@@ -44,7 +44,7 @@ class CourseAdmin(admin.ModelAdmin):
     )
 
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'course', 'duration', 'order', 'is_free')
+    list_display = ('title', 'course', 'order', 'is_free')
     list_filter = ('is_free', 'course__course_type', 'course')
     search_fields = ('title', 'course__title')
     raw_id_fields = ('course',)
