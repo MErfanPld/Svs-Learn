@@ -32,6 +32,12 @@ class Course(models.Model):
         ('offline', _('آفلاین (ویدیویی)')),
     )
     
+    LEVEL_TYPES = (
+        ('preliminary', _('مقدماتی')),
+        ('advanced', _('پیشرفته')),
+        ('zero_to_one_hundred', _('صفر تا صد')),
+    )
+    
     title = models.CharField(_('عنوان دوره'), max_length=200)
     slug = models.SlugField(_('اسلاگ'), unique=True)
     description = RichTextField(_('توضیحات دوره'))
@@ -52,6 +58,13 @@ class Course(models.Model):
         _('نوع دوره'), 
         max_length=20, 
         choices=COURSE_TYPES
+    )
+    course_level = models.CharField(
+        _('سطح دوره'), 
+        max_length=20, 
+        blank=True,
+        null=True,
+        choices=LEVEL_TYPES
     )
     price = models.CharField(
         _('قیمت'), 
@@ -99,6 +112,7 @@ class Course(models.Model):
     )
     
     views = models.PositiveIntegerField(default=0, verbose_name="تعداد بازدید")
+    participant = models.PositiveIntegerField(default=0, blank=True,null=True,verbose_name="تعداد دانشجویان دوره")
     
     class Meta:
         verbose_name = _('دوره')
@@ -117,6 +131,11 @@ class Course(models.Model):
         
     def get_absolute_url(self):
         return reverse('courses:course_detail', kwargs={'slug': self.slug})
+
+    def get_course_level_display(self):
+        if self.course_level:
+            return dict(self.LEVEL_TYPES).get(self.course_level, 'نامشخص')
+        return "پایه"
 
 class Video(models.Model):
     course = models.ForeignKey(

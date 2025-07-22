@@ -58,11 +58,11 @@
                                 </li>
                                 <li>
                                     <span>سطح دوره</span>
-                                    {{ course.get_level_display|default:"پایه" }}
+                                    {{ course.get_course_level_display|default:"پایه" }}
                                 </li>
                                 <li>
-                                    <span>شرکت کننده</span>
-                                    {{ enrollments_count }}
+                                    <span>دانشجویان دوره</span>
+                                    {{ course.participant }}
                                 </li>
                                 <li>
                                     <span>زبان</span>

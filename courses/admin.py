@@ -1,7 +1,39 @@
-from django.contrib import admin
+from django.contrib import admin , messages
 from django.contrib.auth.admin import UserAdmin
+from django.utils.text import slugify
 from django.contrib.auth.models import User
+
+from courses.helpers import generate_random_string
 from .models import CategoryCourse, Course, Video, Enrollment,Comment
+
+
+@admin.action(description="کپی کردن دوره‌های انتخاب‌شده")
+def duplicate_courses(modeladmin, request, queryset):
+    copied = 0
+    for obj in queryset:
+        old_slug = obj.slug
+        obj.pk = None 
+        obj.slug = f"{slugify(obj.title)}-{generate_random_string()}" 
+        obj.save()
+        copied += 1
+    messages.success(request, f"{copied} دوره با موفقیت کپی شد.")
+
+@admin.action(description="فعال‌سازی دوره‌های انتخاب‌شده")
+def activate_courses(modeladmin, request, queryset):
+    updated = queryset.update(is_active=True)
+    messages.success(request, f"{updated} دوره فعال شد.")
+
+@admin.action(description="غیرفعال‌سازی دوره‌های انتخاب‌شده")
+def deactivate_courses(modeladmin, request, queryset):
+    updated = queryset.update(is_active=False)
+    messages.success(request, f"{updated} دوره غیرفعال شد.")
+
+@admin.action(description="افزایش بازدید دوره‌های انتخاب‌شده ")
+def increase_views(modeladmin, request, queryset):
+    for course in queryset:
+        course.views += 100  # یا هر مقدار دلخواه
+        course.save(update_fields=['views'])
+    messages.success(request, "بازدید دوره‌ها افزایش یافت.")
 
 class CategoryCourseAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'course_count')
@@ -19,15 +51,16 @@ class VideoInline(admin.TabularInline):
     ordering = ('order',)
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'instructor', 'category', 'course_type', 'price', 'is_active')
+    list_display = ('title', 'instructor', 'category', 'course_type', 'course_level','price', 'is_active')
     list_filter = ('course_type', 'category', 'is_active', 'instructor')
     search_fields = ('title', 'description', 'instructor__username')
     prepopulated_fields = {'slug': ('title',)}
     raw_id_fields = ('instructor', 'category')
     inlines = [VideoInline]
+    actions = [duplicate_courses,activate_courses,deactivate_courses,increase_views] 
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'description', 'instructor', 'category', 'course_type')
+            'fields': ('title', 'slug', 'description', 'instructor', 'category', 'course_type','course_level',)
         }),
         ('اطلاعات مالی', {
             'fields': ('price',)
@@ -39,7 +72,7 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': ('image', 'meeting_link', 'total_videos', 'total_downloads')
         }),
         ('تنظیمات وضعیت', {
-            'fields': ('is_active','views')
+            'fields': ('is_active','views','participant')
         }),
     )
 
