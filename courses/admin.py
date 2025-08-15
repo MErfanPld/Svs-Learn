@@ -10,13 +10,28 @@ from .models import CategoryCourse, Course, Video, Enrollment,Comment
 @admin.action(description="کپی کردن دوره‌های انتخاب‌شده")
 def duplicate_courses(modeladmin, request, queryset):
     copied = 0
-    for obj in queryset:
-        old_slug = obj.slug
-        obj.pk = None 
-        obj.slug = f"{slugify(obj.title)}-{generate_random_string()}" 
-        obj.save()
+    for course in queryset:
+        old_course = course
+        videos = list(old_course.videos.all())
+
+        # ساخت دوره جدید
+        course.pk = None
+        course.slug = f"{slugify(course.title)}-{generate_random_string()}"
+        course.views = 0
+        course.participant = 0
+        course.save()
+
+        # کپی ویدیوها
+        for video in videos:
+            old_pk = video.pk
+            video.pk = None
+            video.course = course
+            video.save()
+        
         copied += 1
+
     messages.success(request, f"{copied} دوره با موفقیت کپی شد.")
+
 
 @admin.action(description="فعال‌سازی دوره‌های انتخاب‌شده")
 def activate_courses(modeladmin, request, queryset):
